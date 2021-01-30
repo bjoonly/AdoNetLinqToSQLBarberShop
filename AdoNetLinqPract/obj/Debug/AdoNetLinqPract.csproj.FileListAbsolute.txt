@@ -1,0 +1,7 @@
+C:\Users\Admin\source\repos\AdoNetLinqPract\AdoNetLinqPract\bin\Debug\AdoNetLinqPract.exe.config
+C:\Users\Admin\source\repos\AdoNetLinqPract\AdoNetLinqPract\bin\Debug\AdoNetLinqPract.exe
+C:\Users\Admin\source\repos\AdoNetLinqPract\AdoNetLinqPract\bin\Debug\AdoNetLinqPract.pdb
+C:\Users\Admin\source\repos\AdoNetLinqPract\AdoNetLinqPract\obj\Debug\AdoNetLinqPract.csprojAssemblyReference.cache
+C:\Users\Admin\source\repos\AdoNetLinqPract\AdoNetLinqPract\obj\Debug\AdoNetLinqPract.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\AdoNetLinqPract\AdoNetLinqPract\obj\Debug\AdoNetLinqPract.exe
+C:\Users\Admin\source\repos\AdoNetLinqPract\AdoNetLinqPract\obj\Debug\AdoNetLinqPract.pdb

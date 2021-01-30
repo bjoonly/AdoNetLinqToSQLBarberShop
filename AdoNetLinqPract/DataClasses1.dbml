@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BarberShop" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-H4HII9T\SQLEXPRESS;Initial Catalog=BarberShop;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="AdoNetLinqPract.Properties.Settings" SettingsPropertyName="BarberShopConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Archive" Member="Archive">
+    <Type Name="Archive">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="BarberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StartTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Association Name="Clients_Archive" Member="Clients" ThisKey="ClientId" OtherKey="Id" Type="Clients" IsForeignKey="true" />
+      <Association Name="Barbers_Archive" Member="Barbers" ThisKey="BarberId" OtherKey="Id" Type="Barbers" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VisitArchive" Member="VisitArchive">
+    <Type Name="VisitArchive">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BarberId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ServiceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="FeedbackId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Services_VisitArchive" Member="Services" ThisKey="ServiceId" OtherKey="Id" Type="Services" IsForeignKey="true" />
+      <Association Name="Clients_VisitArchive" Member="Clients" ThisKey="ClientId" OtherKey="Id" Type="Clients" IsForeignKey="true" />
+      <Association Name="Feedbacks_VisitArchive" Member="Feedbacks" ThisKey="FeedbackId" OtherKey="Id" Type="Feedbacks" IsForeignKey="true" />
+      <Association Name="Barbers_VisitArchive" Member="Barbers" ThisKey="BarberId" OtherKey="Id" Type="Barbers" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Services" Member="Services">
+    <Type Name="Services">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Duration" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Association Name="Services_VisitArchive" Member="VisitArchive" ThisKey="Id" OtherKey="ServiceId" Type="VisitArchive" />
+      <Association Name="Services_BarbersServices" Member="BarbersServices" ThisKey="Id" OtherKey="ServiceId" Type="BarbersServices" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Registers" Member="Registers">
+    <Type Name="Registers">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ScheduleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Time" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Association Name="Clients_Registers" Member="Clients" ThisKey="ClientId" OtherKey="Id" Type="Clients" IsForeignKey="true" />
+      <Association Name="Schedules_Registers" Member="Schedules" ThisKey="ScheduleId" OtherKey="Id" Type="Schedules" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Positions" Member="Positions">
+    <Type Name="Positions">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="Positions_Barbers" Member="Barbers" ThisKey="Id" OtherKey="PositionId" Type="Barbers" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Clients" Member="Clients">
+    <Type Name="Clients">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="Clients_Archive" Member="Archive" ThisKey="Id" OtherKey="ClientId" Type="Archive" />
+      <Association Name="Clients_VisitArchive" Member="VisitArchive" ThisKey="Id" OtherKey="ClientId" Type="VisitArchive" />
+      <Association Name="Clients_Registers" Member="Registers" ThisKey="Id" OtherKey="ClientId" Type="Registers" />
+      <Association Name="Clients_Feedbacks" Member="Feedbacks" ThisKey="Id" OtherKey="ClientId" Type="Feedbacks" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Feedbacks" Member="Feedbacks">
+    <Type Name="Feedbacks">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Review" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Mark" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BarberId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Feedbacks_VisitArchive" Member="VisitArchive" ThisKey="Id" OtherKey="FeedbackId" Type="VisitArchive" />
+      <Association Name="Clients_Feedbacks" Member="Clients" ThisKey="ClientId" OtherKey="Id" Type="Clients" IsForeignKey="true" />
+      <Association Name="Barbers_Feedbacks" Member="Barbers" ThisKey="BarberId" OtherKey="Id" Type="Barbers" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Barbers" Member="Barbers">
+    <Type Name="Barbers">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="BirthDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="HireDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="PositionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Barbers_Archive" Member="Archive" ThisKey="Id" OtherKey="BarberId" Type="Archive" />
+      <Association Name="Barbers_VisitArchive" Member="VisitArchive" ThisKey="Id" OtherKey="BarberId" Type="VisitArchive" />
+      <Association Name="Barbers_Feedbacks" Member="Feedbacks" ThisKey="Id" OtherKey="BarberId" Type="Feedbacks" />
+      <Association Name="Barbers_BarbersServices" Member="BarbersServices" ThisKey="Id" OtherKey="BarberId" Type="BarbersServices" />
+      <Association Name="Barbers_Schedules" Member="Schedules" ThisKey="Id" OtherKey="BarberId" Type="Schedules" />
+      <Association Name="Positions_Barbers" Member="Positions" ThisKey="PositionId" OtherKey="Id" Type="Positions" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BarbersServices" Member="BarbersServices">
+    <Type Name="BarbersServices">
+      <Column Name="BarberId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ServiceId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Barbers_BarbersServices" Member="Barbers" ThisKey="BarberId" OtherKey="Id" Type="Barbers" IsForeignKey="true" />
+      <Association Name="Services_BarbersServices" Member="Services" ThisKey="ServiceId" OtherKey="Id" Type="Services" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Schedules" Member="Schedules">
+    <Type Name="Schedules">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="BarberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StartTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Association Name="Schedules_Registers" Member="Registers" ThisKey="Id" OtherKey="ScheduleId" Type="Registers" />
+      <Association Name="Barbers_Schedules" Member="Barbers" ThisKey="BarberId" OtherKey="Id" Type="Barbers" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
